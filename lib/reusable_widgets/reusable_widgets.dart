@@ -1,4 +1,6 @@
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 Image logoWidget(String imageName){
@@ -32,6 +34,62 @@ TextField reusableTextField(String text , IconData icon ,bool isPasswordType , T
     keyboardType:
     isPasswordType?TextInputType.visiblePassword :
     TextInputType.emailAddress,
+  );
+}
+
+Scaffold personalChat(BuildContext context , String name){
+  TextEditingController message_controller = TextEditingController();
+  return Scaffold(
+    appBar: AppBar(
+      actions: [
+        IconButton(onPressed: (){}, icon: const Icon(Icons.settings))
+      ],
+      title: Text(name ,
+        style: const TextStyle(fontSize: 24 , fontWeight: FontWeight.bold),),
+      centerTitle: true,
+      backgroundColor: Colors.black,
+      elevation: 0,
+    ),
+    body: Stack(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.bottomCenter,
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            width: MediaQuery.of(context).size.width ,
+            padding: const  EdgeInsets.symmetric(horizontal: 20 , vertical: 18),
+            color: Colors.grey[700],
+            child: Row(
+              children: [
+                Expanded(child: TextFormField(
+                  controller: message_controller,
+                  style: TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    hintText: "Write Here",
+                    hintStyle: TextStyle(color: Colors.white , fontSize: 16),
+                    border: InputBorder.none,
+                  ),
+                )),
+                const SizedBox(
+                  width: 12,
+                ),
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: const  Center(
+                    child: Icon(Icons.send , color: Colors.black),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
   );
 }
 

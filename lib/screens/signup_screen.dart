@@ -44,7 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen > {
             child: Padding(
               padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height*0.2, 20, 0),
               child: Column(
-                children: <Widget>[
+                  children: <Widget>[
                   const SizedBox(
                     height: 20,
                   ),

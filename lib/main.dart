@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Colors.blue,
       ),
       home: const SignInScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

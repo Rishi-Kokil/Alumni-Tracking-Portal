@@ -4,3 +4,22 @@ actions: [
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage()))
               }, icon: const  Icon(Icons.message_outlined))
         ],
+
+
+ElevatedButton(
+                    onPressed: (){},
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith((states){
+                          if (states.contains(MaterialState.pressed)){
+                            return Colors.black26;
+                          }
+                          return Colors.orange;
+                        }),shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
+                    child: const Text(
+                      "CSI VESIT",
+                      style: TextStyle(
+                          color: Colors.black87 ,fontWeight: FontWeight.bold ,fontSize: 16),
+                    ),
+
+                  ),
