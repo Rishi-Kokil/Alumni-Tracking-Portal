@@ -22,12 +22,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage()));
+          }, icon: Icon(Icons.message_outlined))
+        ],
         backgroundColor: Colors.black,
         elevation: 0,
         title: const Text(
             "Home",
           style: TextStyle(fontSize: 24 , fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
       ),
       body: Container(
         alignment: Alignment.center,
