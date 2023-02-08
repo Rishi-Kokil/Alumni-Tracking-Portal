@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47097632016",
+    "project_id": "alumni-portal-rishi",
+    "storage_bucket": "alumni-portal-rishi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47097632016:android:a8921e036f196cd6cb4195",
+        "android_client_info": {
+          "package_name": "com.example.alumni_portal_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47097632016-o5p2c41harle8ure8vngoj7me5ek5kkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0jEOwg1TxQ5tkCC297R-CCh64TuSuJ30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47097632016-o5p2c41harle8ure8vngoj7me5ek5kkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
