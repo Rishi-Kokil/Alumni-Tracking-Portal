@@ -1,7 +1,8 @@
 
-import 'dart:html';
+
 import 'package:alumni_portal_flutter/screens/chat_page.dart';
 import 'package:alumni_portal_flutter/screens/signin_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:alumni_portal_flutter/utils/colors_utils.dart';
@@ -46,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               signInSignUpButtons(context, false, () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                FirebaseAuth.instance.signOut().then(
+                        (value) =>Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()))
+                        );
               }),
             ],
           ),

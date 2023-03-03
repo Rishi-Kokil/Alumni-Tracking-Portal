@@ -58,6 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen > {
                   ),
                   reusableTextField("Password", Icons.lock_outline, true, _passwordTextController),
                   signInSignUpButtons(context, false, () {
+                    print(_passwordTextController);
                     FirebaseAuth.instance.createUserWithEmailAndPassword(
                         email: _emailTextController.text, password: _passwordTextController.text).then(
                             (value) =>

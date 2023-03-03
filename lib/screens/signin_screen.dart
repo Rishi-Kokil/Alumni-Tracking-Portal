@@ -19,7 +19,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
-
+  String passwd = "New";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,25 +36,34 @@ class _SignInScreenState extends State<SignInScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-              20,MediaQuery.of(context).size.height*0.2 , 20 , 0),
+              20,MediaQuery.of(context).size.height*0.1 , 20 , 0),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/logo1.png"),
+                logoWidget("assets/images/logo_ats.png"),
                 const SizedBox(
                   height: 30,
                 ),
-                reusableTextField("Entre Username", Icons.person_outline, false ,
+                reusableTextField("Enter Username", Icons.person_outline, false ,
                     _emailTextController),
                 const SizedBox(
                   height: 30,
                 ),
-                reusableTextField("Entre Password", Icons.lock_outline, true ,
+                reusableTextField("Enter Password", Icons.lock_outline, true ,
                     _passwordTextController),
                 const SizedBox(
                   height: 20
                 ),
                 signInSignUpButtons(context, true, () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _emailTextController.text, password: _emailTextController.text.toString()).then(
+                          (value) => Navigator.push(
+                              context, MaterialPageRoute(
+                              builder: (context) => HomeScreen()
+                          )
+                          )
+                  ).onError((error, stackTrace) => {
+                    print('Error :- ${error.toString()} and password = ${_passwordTextController} and email = ${_emailTextController}')
+                  });
                 }
                 ),
                 signUpOption()

@@ -1,5 +1,5 @@
 
-import 'dart:html';
+
 
 import 'package:flutter/material.dart';
 
@@ -7,13 +7,13 @@ Image logoWidget(String imageName){
   return Image.asset(
     imageName ,
     fit:BoxFit.fitWidth,
-    width: 240,
-    height: 240,
+    width: 340,
+    height: 340,
     // color: Colors.white,
   );
 }
 
-TextField reusableTextField(String text , IconData icon ,bool isPasswordType , TextEditingController controller){
+TextField reusableTextField(String text , IconData icon , bool isPasswordType , TextEditingController controller){
 
   return TextField(
     controller: controller,
@@ -21,7 +21,7 @@ TextField reusableTextField(String text , IconData icon ,bool isPasswordType , T
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: Colors.white,
-    style: TextStyle(color:  Colors.white.withOpacity(0.9)),
+    style: TextStyle(color:  Colors.white.withOpacity(0.9) , fontFamily: "Playfair Display"),
     decoration: InputDecoration(prefixIcon: Icon(icon , color: Colors.white70,),
     labelText: text,
     labelStyle: TextStyle(color: Colors.white70.withOpacity(0.9)),
@@ -63,7 +63,7 @@ Scaffold personalChat(BuildContext context , String name){
               children: [
                 Expanded(child: TextFormField(
                   controller: message_controller,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white , fontFamily: "Playfair Display"),
                   decoration: const InputDecoration(
                     hintText: "Write Here",
                     hintStyle: TextStyle(color: Colors.white , fontSize: 16),
