@@ -1,13 +1,17 @@
 
 
+import 'package:alumni_portal_flutter/helper/helper_functions.dart';
 import 'package:alumni_portal_flutter/screens/chat_page.dart';
 import 'package:alumni_portal_flutter/screens/signin_screen.dart';
+import 'package:alumni_portal_flutter/services/auth_services.dart';
+import 'package:alumni_portal_flutter/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:alumni_portal_flutter/utils/colors_utils.dart';
 import 'package:alumni_portal_flutter/reusable_widgets/reusable_widgets.dart';
 import 'package:alumni_portal_flutter/screens/signup_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +22,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String userName = "";
+  String email = "";
+  AuthService authService = AuthService();
+
+  @override
+  void initState(){
+    super.initState();
+    gettingUserdata();
+  }
+
+  gettingUserdata() async {
+    await HelperFunction.getUserEmailFromSF().then((value) {
+      setState(() {
+        email = value!;
+      });
+    });
+     await HelperFunction.getUserNameFromSf().then((value) {
+      setState(() {
+        userName = value!;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,36 +51,43 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage()));
-          }, icon: Icon(Icons.message_outlined))
+            nextScreenReplace(context, ChatScreen());
+          },icon: Icon(Icons.message_outlined))
         ],
-        backgroundColor: Colors.black,
-        elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor,
+
         title: const Text(
             "Home",
           style: TextStyle(fontSize: 24 , fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(
-                height: 20,
-              ),
-              signInSignUpButtons(context, false, () {
-                FirebaseAuth.instance.signOut().then(
-                        (value) =>Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()))
-                        );
-              }),
-            ],
-          ),
+      drawer: Drawer(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 50),
+          children: <Widget>[
+            const Icon(
+              Icons.account_circle , size: 150 , color: Colors.black12,),
+            const SizedBox(height: 10,),
+            Text(
+              email,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold),),
+            const SizedBox(height: 30,),
+            const Divider(height: 2,),
+            ListTile()
+          ],
         ),
       ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text("LogOut"),
+          onPressed: (){
+            authService.signout();
+            nextScreenReplace(context, SignInScreen());
+          },
+        ),
+      )
     );
   }
 }
