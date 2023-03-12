@@ -2,8 +2,12 @@
 
 import 'package:alumni_portal_flutter/helper/helper_functions.dart';
 import 'package:alumni_portal_flutter/screens/chat_page.dart';
+import 'package:alumni_portal_flutter/screens/profile_page.dart';
 import 'package:alumni_portal_flutter/screens/signin_screen.dart';
 import 'package:alumni_portal_flutter/services/auth_services.dart';
+import 'package:alumni_portal_flutter/services/database_service.dart';
+import 'package:alumni_portal_flutter/widgets/bottomnav.dart';
+import 'package:alumni_portal_flutter/widgets/maindrawer.dart';
 import 'package:alumni_portal_flutter/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -25,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String userName = "";
   String email = "";
   AuthService authService = AuthService();
+  Stream? groups;
 
   @override
   void initState(){
@@ -43,10 +48,18 @@ class _HomeScreenState extends State<HomeScreen> {
         userName = value!;
       });
     });
+     await DatabaseService(uid : FirebaseAuth.instance.currentUser!.uid).getUserGroups().then(
+       (snapShots){
+         setState(() {
+           groups = snapShots;
+         });
+       }
+     );
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNav(userName: userName,email: email,),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         actions: [
@@ -62,29 +75,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 50),
-          children: <Widget>[
-            const Icon(
-              Icons.account_circle , size: 150 , color: Colors.black12,),
-            const SizedBox(height: 10,),
-            Text(
-              email,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),),
-            const SizedBox(height: 30,),
-            const Divider(height: 2,),
-            ListTile()
-          ],
-        ),
-      ),
+      drawer: MainDrawer(userName: userName, email: email,),
       body: Center(
         child: ElevatedButton(
-          child: Text("LogOut"),
+          child: const Text("LogOut"),
           onPressed: (){
-            authService.signout();
-            nextScreenReplace(context, SignInScreen());
+            authService.signout().whenComplete(() => nextScreenReplace(context, const SignInScreen())); 
           },
         ),
       )

@@ -43,17 +43,19 @@ class _SignUpScreenState extends State<SignUpScreen > {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset(
-                    "assets/images/logo_alumni_portal_1.png",
-                    width: 250,
-                    height: 250,
-                  ),
-                  // const Text(
-                  //   'Alumni Tracking System' ,
-                  //   style: TextStyle(fontSize: 30 , fontWeight: FontWeight.bold ),
-                  //   textAlign: TextAlign.center,
-                  // ),
                   const SizedBox(height: 20,),
+                  Image.asset(
+                    "assets/images/alumni_logo.png",
+                    width: 150,
+                    height: 150,
+                  ),
+                  const SizedBox(height: 20,),
+                  const Text(
+                    'Alumni Portal' ,
+                    style: TextStyle(fontSize: 24 , fontWeight: FontWeight.bold ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 50,),
                   TextFormField(
                     decoration: textInputDecoration.copyWith(
                         labelText: "Full Name",
